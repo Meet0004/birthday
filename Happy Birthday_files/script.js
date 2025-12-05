@@ -1,3 +1,64 @@
+// Balloon Animation Code - Add this at the end of your script.js
+
+const balloonColors = [
+    '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', 
+    '#98D8C8', '#F7DC6F', '#BB8FCE'
+];
+
+function createBalloon(index) {
+    const container = document.createElement('div');
+    container.className = 'balloon-container-baloons';
+    container.style.left = (Math.random() * 90 + 5) + '%';
+    container.style.animationDelay = '0s';
+    container.style.animationDuration = (8 + Math.random() * 4) + 's';
+    
+    const color = balloonColors[index % balloonColors.length];
+    
+    const balloon = document.createElement('div');
+    balloon.className = 'balloon-baloons';
+    balloon.innerHTML = `
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="50" cy="55" rx="45" ry="52" fill="${color}"/>
+            <circle cx="50" cy="50" r="30" fill="white" opacity="0.3"/>
+            <text x="50" y="60" text-anchor="middle" font-size="30" fill="white">🎉</text>
+            <path d="M 50 107 Q 45 110 50 113 Q 55 110 50 107" fill="${color}" opacity="0.8"/>
+            <ellipse cx="50" cy="108" rx="4" ry="3" fill="${color}" opacity="0.9"/>
+        </svg>
+    `;
+    
+    const string = document.createElement('div');
+    string.className = 'string-baloons';
+    string.style.animationDelay = Math.random() * 2 + 's';
+    string.style.animationDuration = (2 + Math.random() * 2) + 's';
+    
+    container.appendChild(balloon);
+    container.appendChild(string);
+    
+    // Append to specific div instead of body
+    document.querySelector('.balloon-border').appendChild(container);
+    
+    setTimeout(() => {
+        container.remove();
+    }, 12000);
+}
+
+function startBalloonAnimation() {
+    // Create initial balloons
+    for (let i = 0; i < 800; i++) {
+        setTimeout(() => {
+            createBalloon(i);
+        }, i * 800);
+    }
+    
+    // Continue creating balloons periodically
+    let balloonIndex = 7;
+    setInterval(() => {
+        createBalloon(balloonIndex);
+        balloonIndex++;
+    }, 3000);
+}
+
+
 var sf = new Snowflakes({
     color: "#ffd700",
     minSize: 20
@@ -13,12 +74,14 @@ if (c != null) {
 $('#play').click(function () {
     $(".loader").fadeOut("slow");
     sf.destroy();
-    $('.balloon-border').animate({
-        top: -500
-    }, 8000);
+    // $('.balloon-border').animate({
+    //     top: -500
+    // }, 8000);
     var audio = $('.song')[0];
     audio.play();
-
+    
+    console.log("Starting balloon animation..."); // ADD THIS
+    startBalloonAnimation();
 });
 var typed = new Typed("#typed", {
     stringsElement: '#typed-strings',

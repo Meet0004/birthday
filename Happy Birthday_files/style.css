@@ -1,4 +1,54 @@
-/* customizable snowflake styling */
+/* Balloon Animation Styles - Add this at the end of your style.css */
+.balloon-container-baloons {
+    position: fixed;
+    bottom: -200px;
+    animation: float-baloons 10s ease-in infinite;
+    z-index: 99999999; /* Lower than confetti canvas but visible */
+}
+
+.balloon-baloons {
+    position: relative;
+    width: 80px;
+    height: 95px;z-index: 99999999; /* Lower than confetti canvas but visible */
+}
+
+.balloon-baloons svg {
+    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));z-index: 99999999; /* Lower than confetti canvas but visible */
+}
+
+.string-baloons {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 2px;
+    height: 100px;
+    background: #333;
+    transform-origin: top center;
+    animation: sway-baloons 3s ease-in-out infinite;z-index: 99999999; /* Lower than confetti canvas but visible */
+}
+
+@keyframes float-baloons {
+    0% {
+        bottom: -200px;
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        bottom: 110vh;
+        opacity: 0;
+        transform: translateX(30px);
+    }
+}
+
+@keyframes sway-baloons {
+    0%, 100% {
+        transform: rotate(-5deg);
+    }
+    50% {
+        transform: rotate(5deg);
+    }
+}
+
 .loader button {
     width: 50%;
     height: 100px;
@@ -90,6 +140,7 @@ img {
     top: 0;
     height: 100%;
     width: 100%;
+     z-index: 1; /* Set confetti lower */
 }
 
 .type-wrap {
